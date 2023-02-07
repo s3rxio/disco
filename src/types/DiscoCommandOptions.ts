@@ -1,10 +1,5 @@
-import { ApplicationCommandOption, Interaction } from "discord.js";
+import {ApplicationCommand, Interaction} from "discord.js";
 
-export interface DiscoCommandOptions {
-	name: string;
-	description: string;
-
-	options?: ApplicationCommandOption[];
-
-	execute: (args?: string[], interaction?: Interaction) => Promise<void>;
+export interface DiscoCommandOptions extends ApplicationCommand {
+	execute: (interaction?: Interaction) =>  void;
 }
