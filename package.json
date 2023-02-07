@@ -1,0 +1,17 @@
+{
+  "name": "disco",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/s3rxio/disco.git",
+  "author": "S3rxio",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "eslint": "^8.33.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.3"
+  }
+}
