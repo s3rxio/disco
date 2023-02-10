@@ -1,21 +1,20 @@
 import { Client } from "discord.js";
-import {DiscoCommand} from "@/models/DiscoCommand";
-import {DiscoClientOptions, DiscoCommandOptions} from "@/types";
+import { DiscoClientOptions } from "../types";
+import { DiscoCommand } from "../models";
 
 export class DiscoClient extends Client {
-	private commands: Map<string, DiscoCommand> = new Map();
-	private _token: string;
+	private readonly _token: string;
+	private readonly _commands: DiscoCommand[] = [];
 
 	public constructor(options: DiscoClientOptions) {
 		super(options);
+		this._commands = options.commands || [];
 		this._token = options.token;
-		
-		this._init();
-	}
 
-	public async start(): Promise<string> {
-		await this.login(this._token);
-		return this.user!.tag;
+		console.clear();
+		this._init().finally(() => {
+			console.log("Commands registered: " + this._commands.length);
+		});
 	}
 
 	public async stop(): Promise<void> {
@@ -24,30 +23,38 @@ export class DiscoClient extends Client {
 	}
 
 	public async restart(): Promise<string> {
-		if (!this.token) throw new Error("Token does not exist");
 		await this.stop();
-		return this.start();
+		return this._start();
 	}
 
-	public createCommand(options: DiscoCommandOptions): DiscoCommand {
-		const command = new DiscoCommand(options);
-		this.commands.set(command.options.name, command);
-
-		return command;
+	private async _start(): Promise<string> {
+		await this.login(this._token);
+		return this.user!.tag;
 	}
 
-	private _init() {
-		this._handleCommand();
+	private async _init() {
+		await this._start();
+		await this._registerCommands();
+		this._handleInteractionCreate();
 	}
 
-	private _handleCommand() {
-		this.on("interactionCreate", (interaction) => {
-			this.commands.forEach((command) => {
-				if (!interaction.isCommand()) return;
-				console.log(command.options);
-				console.log(interaction);
-			})
-		})
+	private async _registerCommands() {
+		await this.application?.commands.set(
+			this._commands.map(command => command.data)
+		);
 	}
 
+	private _handleInteractionCreate() {
+		this.on("interactionCreate", interaction => {
+			this._commands.forEach(command => {
+				if (
+					!interaction.isCommand() ||
+					interaction.commandName !== command.data.name
+				)
+					return;
+
+				command.execute(interaction);
+			});
+		});
+	}
 }

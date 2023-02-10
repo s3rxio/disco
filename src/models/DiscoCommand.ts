@@ -1,14 +1,18 @@
-import {DiscoCommandOptions} from "@/types/DiscoCommandOptions";
-import {Interaction} from "discord.js";
+import { CommandInteraction } from "discord.js";
+import { DiscoCommandOptions } from "../types";
 
-export class DiscoCommand {
-    private readonly _execute: DiscoCommandOptions["execute"];
+export class DiscoCommand implements DiscoCommandOptions {
+	private readonly _execute: DiscoCommandOptions["execute"];
+	public readonly data: DiscoCommandOptions["data"];
 
-    public constructor(public options: DiscoCommandOptions) {
-        this._execute = options.execute;
-    }
+	public constructor({ data, execute }: DiscoCommandOptions) {
+		this.data = data;
+		this._execute = execute;
+	}
 
-    public async execute(interaction?: Interaction): Promise<void> {
-        await this._execute(interaction);
-    }
+	public execute(interaction?: CommandInteraction): void {
+		if (interaction instanceof CommandInteraction) {
+			this._execute(interaction);
+		}
+	}
 }

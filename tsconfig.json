@@ -6,22 +6,21 @@
       "esnext",
       "es6"
     ],
+    "strict": true,
     "esModuleInterop": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "strict": true,
-
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+    "declaration": true,
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

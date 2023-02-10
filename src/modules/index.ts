@@ -1,7 +1,3 @@
-import { DiscoClient } from "@/modules/DiscoClient";
-import { DiscoCommand } from "@/modules/DiscoCommand";
+import { DiscoClient } from "./DiscoClient";
 
-export {
-    DiscoClient,
-    DiscoCommand
-}
+export { DiscoClient };

@@ -1,5 +1,10 @@
-import {ApplicationCommand, Interaction} from "discord.js";
+import {
+	ApplicationCommandData,
+	Awaitable,
+	CommandInteraction
+} from "discord.js";
 
-export interface DiscoCommandOptions extends ApplicationCommand {
-	execute: (interaction?: Interaction) =>  void;
+export interface DiscoCommandOptions {
+	data: ApplicationCommandData;
+	execute: (interaction: CommandInteraction) => Awaitable<void>;
 }

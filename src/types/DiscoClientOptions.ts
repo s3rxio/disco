@@ -1,5 +1,7 @@
-import {ClientOptions} from "discord.js";
+import { ClientOptions } from "discord.js";
+import { DiscoCommand } from "../models";
 
 export interface DiscoClientOptions extends ClientOptions {
-    token: string;
+	token: string;
+	commands?: DiscoCommand[];
 }

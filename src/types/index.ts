@@ -1,7 +1,4 @@
-import {DiscoClientOptions} from "@/types/DiscoClientOptions";
-import {DiscoCommandOptions} from "@/types/DiscoCommandOptions";
+import { DiscoClientOptions } from "./DiscoClientOptions";
+import { DiscoCommandOptions } from "./DiscoCommandOptions";
 
-export {
-    DiscoClientOptions,
-    DiscoCommandOptions
-}
+export { DiscoClientOptions, DiscoCommandOptions };

@@ -1,17 +1,31 @@
 {
   "name": "disco",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/s3rxio/disco.git",
   "author": "S3rxio",
   "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write src/**/*.{ts,js,md}",
+    "publish": "npm run build && npm publish",
+    "link": "npm link"
+  },
   "dependencies": {
     "discord.js": "^14.7.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.19",
+    "dotenv": "^16.0.3",
     "eslint": "^8.33.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
