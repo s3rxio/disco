@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js";
-import { DiscoCommandOptions } from "../types";
+import { type DiscoCommandOptions } from "../types";
 
 export class DiscoCommand implements DiscoCommandOptions {
 	private readonly _execute: DiscoCommandOptions["execute"];

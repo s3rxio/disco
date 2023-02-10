@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
-import { DiscoClientOptions } from "../types";
-import { DiscoCommand } from "../models";
+import { type DiscoClientOptions } from "../types";
+import { type DiscoCommand } from "../models";
 
 export class DiscoClient extends Client {
 	private readonly _token: string;
@@ -8,28 +8,23 @@ export class DiscoClient extends Client {
 
 	public constructor(options: DiscoClientOptions) {
 		super(options);
-		this._commands = options.commands || [];
+		this._commands = options.commands ?? [];
 		this._token = options.token;
 
 		console.clear();
 		this._init().finally(() => {
-			console.log("Commands registered: " + this._commands.length);
+			console.log(`${this._commands.length} commands registered.`);
 		});
 	}
 
-	public async stop(): Promise<void> {
-		await this.destroy();
-		process.exit(0);
+	public async restart(): Promise<string | undefined> {
+		this.destroy();
+		return await this._start();
 	}
 
-	public async restart(): Promise<string> {
-		await this.stop();
-		return this._start();
-	}
-
-	private async _start(): Promise<string> {
+	private async _start(): Promise<string | undefined> {
 		await this.login(this._token);
-		return this.user!.tag;
+		return this.user?.tag;
 	}
 
 	private async _init() {

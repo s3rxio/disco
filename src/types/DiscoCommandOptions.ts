@@ -1,7 +1,7 @@
 import {
-	ApplicationCommandData,
-	Awaitable,
-	CommandInteraction
+	type ApplicationCommandData,
+	type Awaitable,
+	type CommandInteraction
 } from "discord.js";
 
 export interface DiscoCommandOptions {
